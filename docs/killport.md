@@ -9,3 +9,14 @@ Instead of first doing `ps -aux` to identify running processes, then pick the pr
 
 1. Identify pid from port number
 2. Instead of using 'kill -9 \<pid>'', attempt 'kill -SIGTERM \<pid>'
+
+```shell
+killport.sh [options] portnumber
+
+    Options:
+    -v    Verbose
+    -f    Force kill - use SIGKILL instead of SIGTERM
+    -h    Help (this usage message)
+
+ex.: killport.sh 3000
+```
