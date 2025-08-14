@@ -40,7 +40,13 @@ At the same time - too much loging could cause another problem; _We don't want t
 
    Edit in your favourite editor, adjust this array, make it reflect your specific webhotel solution.
 
-3. Adjust the logsize if you like.
+3. Verify that the `SEARCHSTRING` actually contains what you want the script to look for
+
+   ```shell
+   SEARCHSTRING="lsnode:/home/$USER/"
+   ```
+
+4. Adjust the logsize if you like.
    It's this part that handles logsize and logfile rotations - I won't go into details, find out yourself.
 
    ```shell
@@ -51,14 +57,14 @@ At the same time - too much loging could cause another problem; _We don't want t
     fi
    ```
 
-4. Adjust the LOGDIR if you like - currently set to log into the script folder
-5. Create a folder on your webhotel to hold and maintain custom made scripts - ex.: `/cronscripts`
-6. Copy the adjusted `cleanup_orphans.sh` to the webhotel folder: `/cronscripts/cleanup_orphans.sh`
-7. Add a cron job in cPanel - I suggest running this script on a regular basis like every 5-30 minutes
+5. Adjust the LOGDIR if you like - currently set to log into the script folder
+6. Create a folder on your webhotel to hold and maintain custom made scripts - ex.: `/cronscripts`
+7. Copy the adjusted `cleanup_orphans.sh` to the webhotel folder: `/cronscripts/cleanup_orphans.sh`
+8. Add a cron job in cPanel - I suggest running this script on a regular basis like every 5-30 minutes
    (depending on the amount of traffic that causes orphaned processes)
 
    ex.: `*/5 * * * * /home/infoqrco/cronscripts/cleanup_orphans.sh`
-8. Monitor the first execution, optionally play with the flags '-v' (verbose) and -d (dry-run).
+9. Monitor the first execution, optionally play with the flags '-v' (verbose) and -d (dry-run).
    Watch the logfile being created and ensure that the cron job runs as expected
 
 Done! Your NodeJs orphaned processes are now being taken care of.
