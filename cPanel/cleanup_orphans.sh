@@ -24,7 +24,7 @@ function add_log () {
 verbose=
 force=
 dryrun=
-SEARCHSTRING="lsnode:/home/username/"
+SEARCHSTRING="lsnode:/home/$USER/"
 PID=
 
 # multible kinds of processes
@@ -177,13 +177,13 @@ handle_orphaned_processes()
     done
 }
 
-if [ "${SEARCHSTRING}" != "lsnode:/home/username/" ]; then
+if [ "${SEARCHSTRING}" != "lsnode:/home/$USER/" ]; then
     handle_orphaned_processes "${SEARCHSTRING}"
 else
     # bash
     for key in ${!domains[@]}; do
         [ "$verbose" == "1" ] && echo "### ${key}: ${domains[${key}]}"
-        handle_orphaned_processes "lsnode:/home/username/${domains[${key}]}"
+        handle_orphaned_processes "lsnode:/home/$USER/${domains[${key}]}"
         [ "$verbose" == "1" ] && echo
     done
 fi
