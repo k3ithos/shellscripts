@@ -3,7 +3,7 @@
 
 Created to run as a cron job in a cPanel webhotel.
 
-This is not a _great_ solution - it is rather a work-around, since it doesn't resolve any problems. What it does, is handling the symptoms (hanging processes) by sending them a SIGTERM to make them terminate - and this way freeing locked resources - creating stability around the webhosted NodeJS app.
+This is not a _great_ solution (because there isn't any) - it is rather a work-around, since it doesn't resolve any problems. What it does, is handling the symptoms (hanging processes) by sending them a SIGTERM to make them terminate - and this way freeing locked resources - creating stability around the webhosted NodeJS app.
 
 ## Purpose
 
@@ -11,14 +11,25 @@ Running NodeJS applications in a cPanel hosted environment is a bit different fr
 rocesses might fail and cause the cPanel process control system to respawn a new NodeJS - or processes that were supposed to terminate keeps hanging as ghosts - eventually ending up taking all resources until the cPanel Resource Monitor blocks further usage.
 
 ```shell
-cleanup_orphans.sh [options] 'COMMAND (sub)string'
+cleanup_orphans.sh [options] 'SEARCHSTRING'
 
     Options:
     -v    Verbose
     -d    Dry-run - show intended behaviour but don't touch anything
     -f    Force kill - use SIGKILL instead of SIGTERM
     -h    Help (this usage message)
+
+    Default SEARCHSTRING: 'lsnode:/home/$USER/'
+
+    If called without 'SEARCHSTRING', the script runs through the internal 
+    array of domains (foldernames added to search string), to clean up each
+    'domain' separately, one by one.
+
 ```
+
+If the script is called with `'SEARCHSTRING'` as input, the default `SEARCHSTRING` is replaced with the input.
+
+Otherwise, the script runs through the internal array of domains (foldernames added to search string), to clean up each 'domain' separately, one by one.
 
 ## Logging
 
@@ -28,7 +39,7 @@ At the same time - too much loging could cause another problem; _We don't want t
 ## Deployment into specific cPanel solution
 
 1. Copy the script 'as is' to a local disk.
-2. The script has this associative array declared, holding the root-foldernames of all the webhosted NodeJS apps
+2. The script has this associative array declared, holding the root-foldernames of all the cPanel hosted NodeJS apps
 
    ```shell
     declare -A domains

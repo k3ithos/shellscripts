@@ -38,13 +38,19 @@ domains[4]='test.mydomain.com'
 
 function usage () {
     cat <<EOUSAGE
-$SCRIPTNAME [options] 'COMMAND (sub)string'
+$SCRIPTNAME [options] 'SEARCHSTRING'
 
     Options:
     -v    Verbose
     -d    Dry-run - show intended behaviour but don't touch anything
     -f    Force kill - use SIGKILL instead of SIGTERM
     -h    Help (this usage message)
+
+    Default SEARCHSTRING: '$SEARCHSTRING'
+
+    If called without 'SEARCHSTRING', the script runs through the internal 
+    array of domains (foldernames added to search string), to clean up each
+    'domain' separately, one by one.
 
 EOUSAGE
 }
