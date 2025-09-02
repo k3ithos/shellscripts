@@ -152,6 +152,9 @@ handle_orphaned_processes()
     # username 3879283  0.0  0.0  13444  4356 pts/0    S    10:04   0:00 /bin/bash -l
     # username 3911293  0.0  0.0 1086604 73900 ?       Sl   10:11   0:00 lsnode:/home/username/dev.mydomain.com/
     do
+        # avoid matching the actual 'grep' command
+        echo "$line" | grep -q "[g]rep" && continue
+
         # latest process is the active one, keep it alive by only removing 'prev' processes 
         if [ "$prev_line" != "" ]; then
             [ "$verbose" == "1" ] && echo "process: $prev_line"
